@@ -143,10 +143,15 @@ class Moderation(commands.Cog):
         if member.top_role > ctx.author.top_role:
             raise ModError(
                 "You can't kick them, They have higher role than you.")
+        
 
         if member.top_role > ctx.me.top_role:
             raise ModError("I can't kick them, They have higher role than me.")
-
+            
+        if member.top_role == ctx.author.top_role:
+            raise ModError(
+                "I can't kick them, They have same role as me.")
+            
         if member == ctx.me:
             raise ModError("I can't kick myself.")
 
@@ -189,6 +194,10 @@ class Moderation(commands.Cog):
 
         if member.top_role > ctx.me.top_role:
             raise ModError("I can't ban them, They have higher role than me.")
+            
+            if member.top_role == ctx.author.top_role:
+            raise ModError(
+                "I can't ban them, They have same role as me.")
 
         if member == ctx.me:
             raise ModError("I can't ban myself.")
